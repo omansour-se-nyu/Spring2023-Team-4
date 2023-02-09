@@ -8,12 +8,12 @@ conn = pymysql.connect(host='3.231.26.120',
     database='nyused')
 @app.route('/create_user', methods=['POST'])
 def create_user():
-    # 获取用户名和密码
+    # Get the username and password
     username = request.form['username']
     password = request.form['password']
     print(username)
     print(password)
-    # 将用户信息插入数据库
+    # Inserting user info into sql
     cursor = conn.cursor()
     cursor.execute("INSERT INTO user (username, password) VALUES (%s, %s)", (username, password))
     conn.commit()
