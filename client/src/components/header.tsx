@@ -16,11 +16,11 @@ import { useState } from 'react';
 import { LocalMall, Logout } from '@mui/icons-material';
 
 export default function Header({
-  logged,
-  setLogged,
+  loggedUser,
+  setLoggedUser,
 }: {
-  logged: boolean;
-  setLogged: (logged: boolean) => void;
+  loggedUser: string | null;
+  setLoggedUser: (loggedUser: string | null) => void;
 }) {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -44,7 +44,7 @@ export default function Header({
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             NYUsed
           </Typography>
-          {logged ? (
+          {loggedUser ? (
             <>
               <Box
                 sx={{
@@ -66,7 +66,7 @@ export default function Header({
                     }}
                   >
                     <Avatar sx={{ width: 32, height: 32, bgcolor: '#4B0082' }}>
-                      U
+                      {loggedUser[0]}
                     </Avatar>
                   </IconButton>
                 </Tooltip>
@@ -81,9 +81,7 @@ export default function Header({
                 <MenuItem
                   onClick={async (e) => {
                     e.preventDefault();
-                    // removeCookie('user');
-                    // router.push('/login');
-                    setLogged(false);
+                    setLoggedUser(null);
                     setAnchorEl(null);
                   }}
                 >

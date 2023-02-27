@@ -10,8 +10,9 @@ import {
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export default function Register() {
   const navigate = useNavigate();
@@ -26,7 +27,15 @@ export default function Register() {
       password: yup.string().min(3).max(40).required('Password is required'),
     }),
     onSubmit: () => {
-      console.log(formik.values);
+      axios
+        .post('http://localhost:8080/user/register', formik.values)
+        .then(() => {
+          navigate('/login');
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error(err.response.data);
+        });
     },
   });
 

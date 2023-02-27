@@ -7,14 +7,17 @@ import Login from 'pages/login';
 import Register from 'pages/register';
 
 export default function App() {
-  const [logged, setLogged] = useState(false);
+  const [loggedUser, setLoggedUser] = useState<string | null>(null);
 
   return (
     <Router>
-      <Header logged={logged} setLogged={setLogged} />
+      <Header loggedUser={loggedUser} setLoggedUser={setLoggedUser} />
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/login" element={<Login setLogged={setLogged} />} />
+        <Route
+          path="/login"
+          element={<Login setLoggedUser={setLoggedUser} />}
+        />
         <Route path="/register" element={<Register />} />
       </Routes>
     </Router>

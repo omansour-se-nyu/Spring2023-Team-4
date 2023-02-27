@@ -10,13 +10,14 @@ import {
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export default function Login({
-  setLogged,
+  setLoggedUser,
 }: {
-  setLogged: (logged: boolean) => void;
+  setLoggedUser: (logged: string | null) => void;
 }) {
   const navigate = useNavigate();
 
@@ -30,9 +31,16 @@ export default function Login({
       password: yup.string().required('Password is required'),
     }),
     onSubmit: () => {
-      console.log(formik.values);
-      setLogged(true);
-      navigate('/');
+      axios
+        .post('http://localhost:8080/user/login', formik.values)
+        .then((res) => {
+          setLoggedUser(res.data.username);
+          navigate('/');
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error(err.response.data);
+        });
     },
   });
 
