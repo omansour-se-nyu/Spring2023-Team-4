@@ -15,20 +15,20 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody User userDto) {
-        User user = userService.findUserByUsername(userDto.getUsername());
-        if (user != null) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("User already exists");
-        }
+        User user; //= userService.findUserByUsername(userDto.getUsername());
+        // if (user != null) {
+        //     return ResponseEntity.status(HttpStatus.CONFLICT).body("User already exists");
+        // }
         user = userService.saveUser(userDto);
         return ResponseEntity.ok(user);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity login(@RequestBody User userDto) {
-        User user = userService.findUserByUsername(userDto.getUsername());
-        if (user == null || !user.getPassword().equals(userDto.getPassword())) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Incorrect username or password");
-        }
-        return ResponseEntity.ok(user);
-    }
+    // @PostMapping("/login")
+    // public ResponseEntity login(@RequestBody User userDto) {
+    //     User user = userService.findUserByUsername(userDto.getUsername());
+    //     if (user == null || !user.getPassword().equals(userDto.getPassword())) {
+    //         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Incorrect username or password");
+    //     }
+    //     return ResponseEntity.ok(user);
+    // }
 }
