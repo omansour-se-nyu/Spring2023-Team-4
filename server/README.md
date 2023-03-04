@@ -16,4 +16,3 @@ Ensure there is a local MySQL database (version `8.0.31`) running on port `3306`
    mvn spring-boot:run
    ```
 
-test this line
