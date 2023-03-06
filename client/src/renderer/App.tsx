@@ -5,9 +5,12 @@ import Header from 'components/header';
 import Main from 'pages/main';
 import Login from 'pages/login';
 import Register from 'pages/register';
+import ProductPost from 'pages/product/post';
+import ProductDetail from 'pages/product/detail';
+import { User } from 'types';
 
 export default function App() {
-  const [loggedUser, setLoggedUser] = useState<string | null>(null);
+  const [loggedUser, setLoggedUser] = useState<User | null>(null);
 
   return (
     <Router>
@@ -19,6 +22,11 @@ export default function App() {
           element={<Login setLoggedUser={setLoggedUser} />}
         />
         <Route path="/register" element={<Register />} />
+        <Route
+          path="/product/post"
+          element={<ProductPost loggedUser={loggedUser} />}
+        />
+        <Route path="/product/:id" element={<ProductDetail />} />
       </Routes>
     </Router>
   );

@@ -1,5 +1,6 @@
 package org.nyu.nyused.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.*;
