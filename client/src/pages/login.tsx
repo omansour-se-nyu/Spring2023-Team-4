@@ -14,10 +14,12 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+import { User } from 'types';
+
 export default function Login({
   setLoggedUser,
 }: {
-  setLoggedUser: (logged: string | null) => void;
+  setLoggedUser: (loggedUser: User | null) => void;
 }) {
   const navigate = useNavigate();
 
@@ -34,7 +36,7 @@ export default function Login({
       axios
         .post('http://localhost:8080/user/login', formik.values)
         .then((res) => {
-          setLoggedUser(res.data.username);
+          setLoggedUser(res.data);
           navigate('/');
         })
         .catch((err) => {

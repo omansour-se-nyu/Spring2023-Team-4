@@ -6,6 +6,7 @@ import webpack from 'webpack';
 import TsconfigPathsPlugins from 'tsconfig-paths-webpack-plugin';
 import webpackPaths from './webpack.paths';
 import { dependencies as externals } from '../../release/app/package.json';
+import Dotenv from 'dotenv-webpack';
 
 const configuration: webpack.Configuration = {
   externals: [...Object.keys(externals || {})],
@@ -52,6 +53,15 @@ const configuration: webpack.Configuration = {
   plugins: [
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'production',
+    }),
+    new Dotenv(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        AWS_ACCESS_KEY_ID: JSON.stringify(process.env.AWS_ACCESS_KEY_ID),
+        AWS_SECRET_ACCESS_KEY: JSON.stringify(
+          process.env.AWS_SECRET_ACCESS_KEY
+        ),
+      },
     }),
   ],
 };

@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -10,11 +11,25 @@ import {
   Typography,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-import { products } from 'data/products';
+import { Product } from 'types';
 
 export default function Main() {
   const navigate = useNavigate();
+
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:8080/product/list')
+      .then((res) => {
+        setProducts(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <main>
@@ -51,9 +66,9 @@ export default function Main() {
               >
                 <CardMedia
                   component="img"
-                  image={product.url}
+                  image={product.mainImageUrl}
                   height="200px"
-                  alt="random"
+                  alt="Product Image"
                 />
                 <CardContent sx={{ flexGrow: 1 }}>
                   <Typography gutterBottom variant="h5" component="h2">
@@ -64,12 +79,11 @@ export default function Main() {
                   <Button
                     size="small"
                     onClick={() => {
-                      navigate('/product');
+                      navigate(`/product/${product.id}`);
                     }}
                   >
                     View
                   </Button>
-                  <Button size="small">Edit</Button>
                 </CardActions>
               </Card>
             </Grid>

@@ -13,14 +13,16 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { LocalMall, Logout } from '@mui/icons-material';
+import { LocalMall, Logout, PostAdd } from '@mui/icons-material';
+
+import { User } from '../types';
 
 export default function Header({
   loggedUser,
   setLoggedUser,
 }: {
-  loggedUser: string | null;
-  setLoggedUser: (loggedUser: string | null) => void;
+  loggedUser: User | null;
+  setLoggedUser: (loggedUser: User | null) => void;
 }) {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -66,7 +68,7 @@ export default function Header({
                     }}
                   >
                     <Avatar sx={{ width: 32, height: 32, bgcolor: '#4B0082' }}>
-                      {loggedUser[0]}
+                      {loggedUser.username[0]}
                     </Avatar>
                   </IconButton>
                 </Tooltip>
@@ -78,6 +80,18 @@ export default function Header({
                   setAnchorEl(null);
                 }}
               >
+                <MenuItem
+                  onClick={async (e) => {
+                    e.preventDefault();
+                    navigate('/product/post');
+                    setAnchorEl(null);
+                  }}
+                >
+                  <ListItemIcon>
+                    <PostAdd fontSize="small" />
+                  </ListItemIcon>
+                  Post a product
+                </MenuItem>
                 <MenuItem
                   onClick={async (e) => {
                     e.preventDefault();
