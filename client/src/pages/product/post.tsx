@@ -21,10 +21,9 @@ import { useNavigate } from 'react-router-dom';
 
 import { User } from 'types';
 
-const { AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY } = dotenv.config().parsed;
 AWS.config.update({
-  accessKeyId: AWS_ACCESS_KEY_ID,
-  secretAccessKey: AWS_SECRET_ACCESS_KEY,
+  accessKeyId: dotenv.config().parsed?.AWS_ACCESS_KEY_ID,
+  secretAccessKey: dotenv.config().parsed?.AWS_SECRET_ACCESS_KEY,
 });
 const s3 = new AWS.S3();
 
