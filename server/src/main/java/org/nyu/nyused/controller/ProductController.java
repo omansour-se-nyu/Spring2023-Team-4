@@ -78,7 +78,7 @@ public class ProductController {
         }
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/buyer/{id}")
     public ResponseEntity purchaseProduct(@RequestParam("user-id")Long userId, @RequestParam("product-id") Long productId){
         Product product = productService.findProductById(productId);
         User user = userService.findUserByUserID(userId);
