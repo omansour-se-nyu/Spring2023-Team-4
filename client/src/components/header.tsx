@@ -1,3 +1,6 @@
+import SellIcon from '@mui/icons-material/Sell';
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+
 import {
   AppBar,
   Avatar,
@@ -92,8 +95,11 @@ export default function Header({
                   </ListItemIcon>
                   Post a product
                 </MenuItem>
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
+=======
+>>>>>>> 81133e0efc6a515e44a8d56f2882df7afeb87758
 
                 <MenuItem
                   onClick={async (e) => {
@@ -105,7 +111,11 @@ export default function Header({
                   <ListItemIcon>
                     <SellIcon fontSize="small" />
                   </ListItemIcon>
+<<<<<<< HEAD
                   My products
+=======
+                  Edit/Delete a product
+>>>>>>> 81133e0efc6a515e44a8d56f2882df7afeb87758
                 </MenuItem>
 
                 <MenuItem
@@ -121,7 +131,10 @@ export default function Header({
                   Front Page
                 </MenuItem>
 
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> 81133e0efc6a515e44a8d56f2882df7afeb87758
                 <MenuItem
                   onClick={async (e) => {
                     e.preventDefault();
