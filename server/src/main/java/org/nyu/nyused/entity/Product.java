@@ -15,8 +15,8 @@ public class Product {
     private String name;
     private String description;
     private Double price;
-    private Long buyer_id;
-    private Long seller_id;
+    private Long buyerId;
+    private Long sellerId;
     private Boolean sold;
     private String mainImageUrl;
 
@@ -27,8 +27,8 @@ public class Product {
         this.name = name;
         this.description = description;
         this.price = price;
-        this.seller_id = sellerId;
-        this.buyer_id = buyerId;
+        this.sellerId = sellerId;
+        this.buyerId = buyerId;
         this.mainImageUrl = mainImageUrl;
     }
 
@@ -42,8 +42,8 @@ public class Product {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +
-                ", buyerId=" + buyer_id +
-                ", sellerId=" + seller_id +
+                ", buyerId=" + buyerId +
+                ", sellerId=" + sellerId +
                 ", sold=" + sold +
                 ", mainImageUrl='" + mainImageUrl + '\'' +
                 '}';

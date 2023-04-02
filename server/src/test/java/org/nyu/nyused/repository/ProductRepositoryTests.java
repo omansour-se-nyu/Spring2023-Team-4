@@ -19,7 +19,7 @@ class ProductRepositoryTests {
         product.setName("testedProduct1");
         product.setDescription("For testing use");
         product.setPrice(999.99);
-        product.setSeller_id(1l);
+        product.setSellerId(1l);
         productRepository.save(product);
     }
 
