@@ -10,10 +10,11 @@ import javax.persistence.*;
 @Data
 public class User {
 
-    public User(Long id, String username, String password) {
+    public User(Long id, String username, String password, Double balance) {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.balance = balance;
     }
 
     public User() {
@@ -28,12 +29,15 @@ public class User {
 
     private String password;
 
+    private Double balance;
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", balance=" + balance +
                 '}';
     }
 }

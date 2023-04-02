@@ -3,6 +3,7 @@ package org.nyu.nyused.controller;
 import org.nyu.nyused.entity.Product;
 import org.nyu.nyused.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +16,18 @@ public class ProductController {
 
     @PostMapping("/post")
     public ResponseEntity postProduct(@RequestBody Product productDto) {
+        switch(productDto.isValid()){
+            case -1:
+                break;
+            case 1:
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Product name should be less than 255 characters.");
+            case 2:
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Product price should be between 0.00 and 100000.00.");
+            case 3:
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Product description should be less than 255 characters.");
+            case 4:
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("You must upload at least one image.");
+        }
         Product product = productService.saveProduct(productDto);
         return ResponseEntity.ok(product);
     }
