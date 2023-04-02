@@ -1,3 +1,6 @@
+import SellIcon from '@mui/icons-material/Sell';
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+
 import {
   AppBar,
   Avatar,
@@ -92,6 +95,33 @@ export default function Header({
                   </ListItemIcon>
                   Post a product
                 </MenuItem>
+
+                <MenuItem
+                  onClick={async (e) => {
+                    e.preventDefault();
+                    navigate('/seller/main.tsx');
+                    setAnchorEl(null);
+                  }}
+                >
+                  <ListItemIcon>
+                    <SellIcon fontSize="small" />
+                  </ListItemIcon>
+                  Edit/Delete a product
+                </MenuItem>
+
+                <MenuItem
+                  onClick={async (e) => {
+                    e.preventDefault();
+                    navigate('/');
+                    setAnchorEl(null);
+                  }}
+                >
+                  <ListItemIcon>
+                    <ShoppingBagIcon fontSize="small" />
+                  </ListItemIcon>
+                  Front Page
+                </MenuItem>
+
                 <MenuItem
                   onClick={async (e) => {
                     e.preventDefault();

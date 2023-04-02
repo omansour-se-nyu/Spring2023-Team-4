@@ -36,10 +36,42 @@ public class ProductController {
     public ResponseEntity listProduct() {
         return ResponseEntity.ok(productService.findAllProducts());
     }
-    
+
+    @GetMapping("/list/{id}")
+    public ResponseEntity listSellerProduct(@PathVariable Long id) {
+        return ResponseEntity.ok(productService.findSellerProducts(id));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity getProduct(@PathVariable Long id) {
         return ResponseEntity.ok(productService.findProductById(id));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity updateProduct(@PathVariable Long id, @RequestBody Product updatedProduct) {
+        Product product = productService.findProductById(id);
+        if (product != null) {
+            product.setName(updatedProduct.getName());
+            product.setPrice(updatedProduct.getPrice());
+            product.setDescription(updatedProduct.getDescription());
+            product.setMainImageUrl(updatedProduct.getMainImageUrl());
+            Product savedProduct = productService.saveProduct(product);
+            return ResponseEntity.ok(savedProduct);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteProduct(@PathVariable Long id) {
+        // productService.deleteProductById(id);
+        // return ResponseEntity.ok(200);
+        try {
+            productService.deleteProductById(id);
+            return ResponseEntity.ok("Product with ID " + id + " has been deleted.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to delete product with ID " + id + ".");
+        }
+    }
 }
