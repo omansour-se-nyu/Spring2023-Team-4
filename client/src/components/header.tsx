@@ -92,6 +92,36 @@ export default function Header({
                   </ListItemIcon>
                   Post a product
                 </MenuItem>
+<<<<<<< Updated upstream
+=======
+
+                <MenuItem
+                  onClick={async (e) => {
+                    e.preventDefault();
+                    navigate('/seller/main.tsx');
+                    setAnchorEl(null);
+                  }}
+                >
+                  <ListItemIcon>
+                    <SellIcon fontSize="small" />
+                  </ListItemIcon>
+                  My products
+                </MenuItem>
+
+                <MenuItem
+                  onClick={async (e) => {
+                    e.preventDefault();
+                    navigate('/');
+                    setAnchorEl(null);
+                  }}
+                >
+                  <ListItemIcon>
+                    <ShoppingBagIcon fontSize="small" />
+                  </ListItemIcon>
+                  Front Page
+                </MenuItem>
+
+>>>>>>> Stashed changes
                 <MenuItem
                   onClick={async (e) => {
                     e.preventDefault();
