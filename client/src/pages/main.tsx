@@ -48,7 +48,7 @@ export default function Main() {
             color="text.primary"
             gutterBottom
           >
-            Product List
+            Home Page
           </Typography>
         </Container>
       </Box>

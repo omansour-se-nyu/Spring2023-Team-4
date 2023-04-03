@@ -7,7 +7,10 @@ import Login from 'pages/login';
 import Register from 'pages/register';
 import ProductPost from 'pages/product/post';
 import ProductDetail from 'pages/product/detail';
+import UserDetail from 'pages/user/detail';
 import { User } from 'types';
+import ProductList from 'pages/product/list';
+import ProductEdit from 'pages/product/edit';
 
 export default function App() {
   const [loggedUser, setLoggedUser] = useState<User | null>(null);
@@ -26,7 +29,19 @@ export default function App() {
           path="/product/post"
           element={<ProductPost loggedUser={loggedUser} />}
         />
-        <Route path="/product/:id" element={<ProductDetail />} />
+        <Route
+          path="/product/:id"
+          element={<ProductDetail loggedUser={loggedUser} />}
+        />
+        <Route path="/user" element={<UserDetail loggedUser={loggedUser} />} />
+        <Route
+          path="/product/list"
+          element={<ProductList loggedUser={loggedUser} />}
+        />
+        <Route
+          path="/product/edit/:id"
+          element={<ProductEdit loggedUser={loggedUser} />}
+        />
       </Routes>
     </Router>
   );

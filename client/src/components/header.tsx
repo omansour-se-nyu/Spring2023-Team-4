@@ -13,7 +13,13 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { LocalMall, Logout, PostAdd } from '@mui/icons-material';
+import {
+  AccountBox,
+  Inventory,
+  LocalMall,
+  Logout,
+  PostAdd,
+} from '@mui/icons-material';
 
 import { User } from '../types';
 
@@ -91,6 +97,30 @@ export default function Header({
                     <PostAdd fontSize="small" />
                   </ListItemIcon>
                   Post a product
+                </MenuItem>
+                <MenuItem
+                  onClick={async (e) => {
+                    e.preventDefault();
+                    navigate('/product/list');
+                    setAnchorEl(null);
+                  }}
+                >
+                  <ListItemIcon>
+                    <Inventory fontSize="small" />
+                  </ListItemIcon>
+                  My products
+                </MenuItem>
+                <MenuItem
+                  onClick={async (e) => {
+                    e.preventDefault();
+                    navigate('/user');
+                    setAnchorEl(null);
+                  }}
+                >
+                  <ListItemIcon>
+                    <AccountBox fontSize="small" />
+                  </ListItemIcon>
+                  User profile
                 </MenuItem>
                 <MenuItem
                   onClick={async (e) => {

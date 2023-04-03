@@ -2,6 +2,7 @@ export type User = {
   id: number;
   username: string;
   password: string;
+  balance: number;
 };
 
 export type Product = {
@@ -10,5 +11,7 @@ export type Product = {
   price: number;
   description: string;
   mainImageUrl: string;
-  userId: number;
+  sellerId: number;
+  buyerId: number | null;
+  sold: boolean;
 };

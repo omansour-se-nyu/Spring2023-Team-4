@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import {
   Avatar,
   Box,
@@ -27,7 +28,7 @@ AWS.config.update({
 });
 const s3 = new AWS.S3();
 
-export default function ProductPost({
+export default function ProductEdit({
   loggedUser,
 }: {
   loggedUser: User | null;
@@ -38,40 +39,48 @@ export default function ProductPost({
     navigate('/login');
   }
 
+  const { id } = useParams();
+
   const [imageFile, setImageFile] = useState<File>();
+  const [mainImageUrl, setMainImageUrl] = useState<string>('');
   const formik = useFormik({
     initialValues: {
       name: '',
       price: '',
       description: '',
+      buyerId: '',
+      sellerId: '',
+      sold: '',
     },
     validationSchema: yup.object({}),
 
     onSubmit: () => {
-      const fileName = `${uuidv4()}.${imageFile?.type.split('/').at(-1)}`;
-      const params = {
-        Bucket: 'nyused',
-        Key: fileName,
-        Body: imageFile,
-      };
-      s3.upload(params)
-        .promise()
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      let fileName;
+      if (imageFile) {
+        fileName = `${uuidv4()}.${imageFile?.type.split('/').at(-1)}`;
+        const params = {
+          Bucket: 'nyused',
+          Key: fileName,
+          Body: imageFile,
+        };
+        s3.upload(params)
+          .promise()
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
       axios
-        .post('http://localhost:8080/product/post', {
+        .put(`http://localhost:8080/product/${id}`, {
           ...formik.values,
-          mainImageUrl: `https://nyused.s3.amazonaws.com/${fileName}`,
-          sellerId: loggedUser?.id,
-          buyerId: null,
-          sold: false,
+          mainImageUrl: fileName
+            ? `https://nyused.s3.amazonaws.com/${fileName}`
+            : mainImageUrl,
         })
         .then(() => {
-          setTimeout(() => navigate('/'), 500);
+          navigate('/');
         })
         .catch((err) => {
           console.log(err);
@@ -79,6 +88,29 @@ export default function ProductPost({
         });
     },
   });
+
+  useEffect(() => {
+    axios.get(`http://localhost:8080/product/${id}`).then((res) => {
+      const {
+        name,
+        description,
+        price,
+        mainImageUrl,
+        buyerId,
+        sellerId,
+        sold,
+      } = res.data;
+      setMainImageUrl(mainImageUrl);
+      formik.setValues({
+        name: name,
+        price: price,
+        description: description,
+        buyerId: buyerId,
+        sellerId: sellerId,
+        sold: sold,
+      });
+    });
+  }, []);
 
   return (
     <>
@@ -96,7 +128,7 @@ export default function ProductPost({
             <PostAddIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Product Post
+            Product Edit
           </Typography>
           <Box
             component="form"
@@ -135,7 +167,7 @@ export default function ProductPost({
               fullWidth
               sx={{ mb: 2 }}
             >
-              {imageFile ? 'Re-select image' : 'Select image'}
+              Re-select image
               <input
                 type="file"
                 accept="image/png, image/jpg, image/jpeg"
