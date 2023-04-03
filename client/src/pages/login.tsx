@@ -83,6 +83,7 @@ export default function Login({
             <TextField
               label="Password"
               name="password"
+              type="password"
               fullWidth
               value={formik.values.password}
               onChange={formik.handleChange}

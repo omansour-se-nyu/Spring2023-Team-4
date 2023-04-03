@@ -1,12 +1,20 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Button, Container, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 
-import { Product } from 'types';
+import { Product, User } from 'types';
 import KvList from 'components/kv-list';
 
-export default function ProductDetail() {
+export default function ProductDetail({
+  loggedUser,
+}: {
+  loggedUser: User | null;
+}) {
+  const navigate = useNavigate();
+
   const { id } = useParams();
   const [product, setProduct] = useState<Product>();
 
@@ -64,9 +72,29 @@ export default function ProductDetail() {
                 },
               ]}
             />
+            <Box display="flex" justifyContent="center" paddingTop="10px">
+              <Button
+                variant="contained"
+                onClick={() => {
+                  axios
+                    .put(
+                      `http://localhost:8080/product/buyer?user-id=${loggedUser?.id}&product-id=${id}`
+                    )
+                    .then(() => {
+                      navigate('/');
+                    })
+                    .catch((err) => {
+                      toast.error(err.response.data);
+                    });
+                }}
+              >
+                Buy
+              </Button>
+            </Box>
           </Container>
         </Box>
       )}
+      <Toaster />
     </main>
   );
 }

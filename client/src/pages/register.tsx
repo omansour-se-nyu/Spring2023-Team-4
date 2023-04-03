@@ -76,6 +76,7 @@ export default function Register() {
             <TextField
               label="Password"
               name="password"
+              type="password"
               fullWidth
               value={formik.values.password}
               onChange={formik.handleChange}
