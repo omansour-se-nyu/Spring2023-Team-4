@@ -21,6 +21,7 @@ export default function Register() {
     initialValues: {
       username: '',
       password: '',
+      balance: '10000',
     },
     validationSchema: yup.object({
       username: yup.string().min(2).max(20).required('Username is required'),
