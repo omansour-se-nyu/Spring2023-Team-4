@@ -7,6 +7,7 @@ import toast, { Toaster } from 'react-hot-toast';
 
 import { Product, User } from 'types';
 import KvList from 'components/kv-list';
+import ChatBox from 'components/chat-box';
 
 export default function ProductDetail({
   loggedUser,
@@ -93,6 +94,13 @@ export default function ProductDetail({
             </Box>
           </Container>
         </Box>
+      )}
+      {loggedUser && (
+        <ChatBox
+          senderId={loggedUser?.id}
+          receiverId={product?.sellerId}
+          productId={id}
+        />
       )}
       <Toaster />
     </main>
