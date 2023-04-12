@@ -22,8 +22,8 @@ import { useNavigate } from 'react-router-dom';
 import { User } from 'types';
 
 AWS.config.update({
-  accessKeyId: dotenv.config().parsed?.AWS_ACCESS_KEY_ID,
-  secretAccessKey: dotenv.config().parsed?.AWS_SECRET_ACCESS_KEY,
+  accessKeyId: 'AKIARCERPPVHWPQQUC3X',
+  secretAccessKey: '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',
 });
 const s3 = new AWS.S3();
 
@@ -45,7 +45,10 @@ export default function ProductPost({
       price: '',
       description: '',
     },
-    validationSchema: yup.object({}),
+    validationSchema: yup.object({
+      name: yup.string().min(2).max(20).required('Name is required'),
+      price: yup.number().required('Price is required'),
+    }),
 
     onSubmit: () => {
       const fileName = `${uuidv4()}.${imageFile?.type.split('/').at(-1)}`;
