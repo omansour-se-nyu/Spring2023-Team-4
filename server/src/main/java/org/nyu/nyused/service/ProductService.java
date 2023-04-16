@@ -29,6 +29,11 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+    public List<Product> findProductsByName(String name) {
+        String searchName = "%" +name+"%";
+        return productRepository.findByProductName(searchName);
+    }
+
     public List<Product> findSellerProducts(Long sid) {
         return productRepository.findBySellerID(sid);
 

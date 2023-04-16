@@ -12,6 +12,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query(value = "select * from product where user_id = ?1", nativeQuery = true)
     List<Product> findBySellerID(Long sid);
 
+    @Query(value = "select * from product where name like ?1", nativeQuery = true)
+    List<Product> findByProductName(String productName);
+
     // @Query(value = "select * from product", nativeQuery = true)
     // List<Product> findBySellerID(Long sid);
 }

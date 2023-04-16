@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping("/product")
@@ -41,6 +43,7 @@ public class ProductController {
 
     @GetMapping("/list")
     public ResponseEntity listProduct() {
+
         return ResponseEntity.ok(productService.findAllProducts());
     }
 
@@ -114,5 +117,40 @@ public class ProductController {
         log.info(seller1.toString());
         return ResponseEntity.ok("The purchase is complete");
     }
+
+    @GetMapping("/list/search")
+    public ResponseEntity searchProduct(@RequestParam("product-name") String productName){
+        if(productName.length() == 0 || productName == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Please enter the product name");
+        }
+        List<Product> list= productService.findProductsByName(productName);
+        return ResponseEntity.ok(list);
+    }
+
+
+    /*@PutMapping("/buyer")
+    public ResponseEntity refundProduct(@RequestParam("user-id")Long userId, @RequestParam("product-id") Long productID){
+        User buyer = userService.findUserByUserID(userId);
+        Product product = productService.findProductById(productID);
+        if(buyer == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The User does not exist");}
+        if(product == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The item does not sold.");}
+        User seller = userService.findUserByUserID(product.getSellerId());
+        // Determine if the item has not yet been purchased
+        if(!product.getSold()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The item has not been sold yet.");
+        }
+        // If the item meets all circumstances of refunding
+        if(confirmingRefund()){}
+        product.setBuyerId(null);
+        product.setSold(false);
+        return ResponseEntity.ok("The item has been returned");
+    }
+
+    @PostMapping("/seller")
+    public Boolean confirmingRefund(@RequestParam("product-id") Long productId, @RequestParam("decline") Boolean decline){
+        return decline;
+    }*/
 
 }
