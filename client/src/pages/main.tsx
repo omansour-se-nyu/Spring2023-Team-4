@@ -14,22 +14,28 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import { Product } from 'types';
+import SearchBar from 'components/search-bar';
 
 export default function Main() {
   const navigate = useNavigate();
 
   const [products, setProducts] = useState<Product[]>([]);
+  const [keyword, setKeyword] = useState('');
 
   useEffect(() => {
     axios
-      .get('http://localhost:8080/product/list')
+      .get(
+        keyword == ''
+          ? 'http://localhost:8080/product/list'
+          : `http://localhost:8080/product/list/search?product-name=${keyword}`
+      )
       .then((res) => {
         setProducts(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [keyword]);
 
   return (
     <main>
@@ -50,6 +56,7 @@ export default function Main() {
           >
             Home Page
           </Typography>
+          <SearchBar setKeyword={setKeyword} />
         </Container>
       </Box>
       <Container maxWidth="md">
