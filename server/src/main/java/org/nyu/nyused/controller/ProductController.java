@@ -131,6 +131,11 @@ public class ProductController {
         return ResponseEntity.ok("The purchase is complete");
     }
 
+    @GetMapping("/manage/transacitons")
+    public ResponseEntity getTransactions(){
+        return ResponseEntity.ok(productService.getTransaction());
+    }
+
     @GetMapping("/list/search")
     public ResponseEntity searchProduct(@RequestParam("product-name") String productName){
         if(productName.length() == 0 || productName == null){

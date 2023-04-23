@@ -18,6 +18,9 @@ public class ProductService {
     public Transaction saveTransaction(Transaction transaction){
         return transactionRepository.save(transaction);
     }
+    public List<Transaction> getTransaction(){
+        return transactionRepository.findAll();
+    }
     public Product saveProduct(Product product) {
         return productRepository.save(product);
     }
