@@ -1,7 +1,9 @@
 package org.nyu.nyused.service;
 
 import org.nyu.nyused.entity.Product;
+import org.nyu.nyused.entity.Transaction;
 import org.nyu.nyused.repository.ProductRepository;
+import org.nyu.nyused.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +14,10 @@ public class ProductService {
 
     @Autowired
     private ProductRepository productRepository;
-
+    private TransactionRepository transactionRepository;
+    public Transaction saveTransaction(Transaction transaction){
+        return transactionRepository.save(transaction);
+    }
     public Product saveProduct(Product product) {
         return productRepository.save(product);
     }

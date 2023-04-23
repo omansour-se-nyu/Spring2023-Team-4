@@ -2,6 +2,7 @@ package org.nyu.nyused.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.nyu.nyused.entity.Product;
+import org.nyu.nyused.entity.Transaction;
 import org.nyu.nyused.entity.User;
 import org.nyu.nyused.service.ProductService;
 import org.nyu.nyused.service.UserService;
@@ -10,6 +11,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalTime;
 import java.util.List;
 
 @Slf4j
@@ -21,8 +26,6 @@ public class ProductController {
     private ProductService productService;
     @Autowired
     private UserService userService;
-
-
     @PostMapping("/post")
     public ResponseEntity postProduct(@RequestBody Product productDto) {
         switch(productDto.isValid()){
@@ -112,6 +115,16 @@ public class ProductController {
         User user1 = userService.saveUser(user);
         User seller1 = userService.saveUser(seller);
         Product product1 = productService.saveProduct(product);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        Transaction transaction = new Transaction();
+        transaction.setPid(product1.getId());
+        transaction.setTime(timestamp);
+        transaction.setName(product1.getName());
+        transaction.setPrice(product1.getPrice());
+        transaction.setSold(true);
+        transaction.setBuyerId(product1.getBuyerId());
+        transaction.setSellerId(product1.getSellerId());
+        productService.saveTransaction(transaction);
         log.info(product1.toString());
         log.info(user1.toString());
         log.info(seller1.toString());

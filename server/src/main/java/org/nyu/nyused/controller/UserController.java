@@ -36,4 +36,9 @@ public class UserController {
     public ResponseEntity getUser(@PathVariable Long id) {
         return ResponseEntity.ok(userService.findUserByUserID(id));
     }
+
+    @GetMapping("/manager/users")
+    public ResponseEntity getUsers(){
+        return ResponseEntity.ok(userService.findUsers());
+    }
 }
