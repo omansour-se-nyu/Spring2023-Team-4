@@ -5,6 +5,7 @@ import org.nyu.nyused.entity.Product;
 import org.nyu.nyused.entity.Transaction;
 import org.nyu.nyused.entity.User;
 import org.nyu.nyused.service.ProductService;
+import org.nyu.nyused.service.TransactionService;
 import org.nyu.nyused.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,8 @@ public class ProductController {
     private ProductService productService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private TransactionService transactionService;
     @PostMapping("/post")
     public ResponseEntity postProduct(@RequestBody Product productDto) {
         switch(productDto.isValid()){
@@ -124,16 +127,17 @@ public class ProductController {
         transaction.setSold(true);
         transaction.setBuyerId(product1.getBuyerId());
         transaction.setSellerId(product1.getSellerId());
-        productService.saveTransaction(transaction);
+        transactionService.saveTransaction(transaction);
         log.info(product1.toString());
         log.info(user1.toString());
         log.info(seller1.toString());
+        log.info(transaction.toString());
         return ResponseEntity.ok("The purchase is complete");
     }
 
     @GetMapping("/manage/transacitons")
     public ResponseEntity getTransactions(){
-        return ResponseEntity.ok(productService.getTransaction());
+        return ResponseEntity.ok(transactionService.getTransaction());
     }
 
     @GetMapping("/list/search")

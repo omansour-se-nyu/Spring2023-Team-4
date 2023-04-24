@@ -14,13 +14,6 @@ public class ProductService {
 
     @Autowired
     private ProductRepository productRepository;
-    private TransactionRepository transactionRepository;
-    public Transaction saveTransaction(Transaction transaction){
-        return transactionRepository.save(transaction);
-    }
-    public List<Transaction> getTransaction(){
-        return transactionRepository.findAll();
-    }
     public Product saveProduct(Product product) {
         return productRepository.save(product);
     }
