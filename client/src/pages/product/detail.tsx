@@ -5,14 +5,18 @@ import { Box, Button, Container, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
 
-import { Product, User } from 'types';
+import { CartProduct, Product, User } from 'types';
 import KvList from 'components/kv-list';
 import ChatBox from 'components/chat-box';
 
 export default function ProductDetail({
   loggedUser,
+  cartProducts,
+  setCartProducts,
 }: {
   loggedUser: User | null;
+  cartProducts: CartProduct[];
+  setCartProducts: (cartProducts: CartProduct[]) => void;
 }) {
   const navigate = useNavigate();
 
@@ -91,6 +95,41 @@ export default function ProductDetail({
               >
                 Buy
               </Button>
+            </Box>
+            <Box display="flex" justifyContent="center" paddingTop="10px">
+              {cartProducts.some(
+                (cartProduct) => cartProduct.id == (id || -1)
+              ) ? (
+                <Button
+                  variant="contained"
+                  color="error"
+                  onClick={() => {
+                    setCartProducts(
+                      cartProducts.filter(
+                        (cartProduct) => Number(id) != cartProduct.id
+                      )
+                    );
+                  }}
+                >
+                  Remove from Cart
+                </Button>
+              ) : (
+                <Button
+                  variant="contained"
+                  color="success"
+                  onClick={() => {
+                    setCartProducts(
+                      cartProducts.concat({
+                        id: Number(id) || -1,
+                        name: product.name,
+                        price: product.price,
+                      })
+                    );
+                  }}
+                >
+                  Add to Cart
+                </Button>
+              )}
             </Box>
           </Container>
         </Box>

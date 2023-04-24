@@ -15,3 +15,9 @@ export type Product = {
   buyerId: number | null;
   sold: boolean;
 };
+
+export type CartProduct = {
+  id: number;
+  name: string;
+  price: number;
+};
