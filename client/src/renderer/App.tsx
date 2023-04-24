@@ -8,12 +8,15 @@ import Register from 'pages/register';
 import ProductPost from 'pages/product/post';
 import ProductDetail from 'pages/product/detail';
 import UserDetail from 'pages/user/detail';
-import { User } from 'types';
+import { CartProduct, User } from 'types';
 import ProductList from 'pages/product/list';
 import ProductEdit from 'pages/product/edit';
+import Cart from 'pages/product/cart';
+import TransactionHistory from 'pages/transaction-history';
 
 export default function App() {
   const [loggedUser, setLoggedUser] = useState<User | null>(null);
+  const [cartProducts, setCartProducts] = useState<CartProduct[]>([]);
 
   return (
     <Router>
@@ -31,7 +34,13 @@ export default function App() {
         />
         <Route
           path="/product/:id"
-          element={<ProductDetail loggedUser={loggedUser} />}
+          element={
+            <ProductDetail
+              loggedUser={loggedUser}
+              cartProducts={cartProducts}
+              setCartProducts={setCartProducts}
+            />
+          }
         />
         <Route path="/user" element={<UserDetail loggedUser={loggedUser} />} />
         <Route
@@ -42,6 +51,17 @@ export default function App() {
           path="/product/edit/:id"
           element={<ProductEdit loggedUser={loggedUser} />}
         />
+        <Route
+          path="/cart"
+          element={
+            <Cart
+              cartProducts={cartProducts}
+              setCartProducts={setCartProducts}
+              loggedUser={loggedUser}
+            />
+          }
+        />
+        <Route path="/transaction-history" element={<TransactionHistory />} />
       </Routes>
     </Router>
   );

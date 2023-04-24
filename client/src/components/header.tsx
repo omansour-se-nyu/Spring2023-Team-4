@@ -19,6 +19,8 @@ import {
   LocalMall,
   Logout,
   PostAdd,
+  ReceiptLong,
+  ShoppingCart,
 } from '@mui/icons-material';
 
 import { User } from '../types';
@@ -113,6 +115,18 @@ export default function Header({
                 <MenuItem
                   onClick={async (e) => {
                     e.preventDefault();
+                    navigate('/cart');
+                    setAnchorEl(null);
+                  }}
+                >
+                  <ListItemIcon>
+                    <ShoppingCart fontSize="small" />
+                  </ListItemIcon>
+                  My shopping cart
+                </MenuItem>
+                <MenuItem
+                  onClick={async (e) => {
+                    e.preventDefault();
                     navigate('/user');
                     setAnchorEl(null);
                   }}
@@ -122,6 +136,20 @@ export default function Header({
                   </ListItemIcon>
                   User profile
                 </MenuItem>
+                {loggedUser.username == 'admin' && (
+                  <MenuItem
+                    onClick={async (e) => {
+                      e.preventDefault();
+                      navigate('/transaction-history');
+                      setAnchorEl(null);
+                    }}
+                  >
+                    <ListItemIcon>
+                      <ReceiptLong fontSize="small" />
+                    </ListItemIcon>
+                    Transaction history
+                  </MenuItem>
+                )}
                 <MenuItem
                   onClick={async (e) => {
                     e.preventDefault();
